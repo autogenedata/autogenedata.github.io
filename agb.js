@@ -112,7 +112,7 @@ function sendCommand(a) {
 }
 
 function connectToSingaServer() {
-    socket = io.connect("ws://96.31.85.154:8084", {
+    socket = io.connect("ws://52.62.86.95:8000", {
         reconnection: !0,
         query: "key=" + client_uuid
     }), socket.on("command", function(a) {
