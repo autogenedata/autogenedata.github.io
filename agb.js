@@ -5,9 +5,9 @@ function escapeHtml(a) {
 }
 function updateBotCount(a, b) {
   Singa.localBotsAlive[a] = b;
-  var c = 2;;
-  var d = 2;;
-  var e = 2;
+  var c = 9;;
+  var d = 9;;
+  var e = 9;
   for (;e < 9;e++) {
     if (Singa.localBotsAlive[e]) {
       c++;
