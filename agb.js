@@ -5,10 +5,10 @@ function escapeHtml(a) {
 }
 function updateBotCount(a, b) {
   Singa.localBotsAlive[a] = b;
-  var c = 50;;
-  var d = 50;;
-  var e = 50;
-  for (;e < 50;e++) {
+  var c = Singa.serverBots;
+  var d = 2 + Singa.serverBots;
+  var e = 0;
+  for (;e < 2;e++) {
     if (Singa.localBotsAlive[e]) {
       c++;
     }
@@ -20,9 +20,9 @@ function updateBotCount(a, b) {
   }
 }
 function startLocalBots() {
-  var a$$0 = 50;
-  for (;a$$0 < Singa.startBotAmount;a$$0++) {
-    Singa.localBotsAlive[a$$0] = true;
+  var a$$0 = 0;
+  for (;a$$0 < 2;a$$0++) {
+    Singa.localBotsAlive[a$$0] = false;
     Singa.localBots[a$$0] = new Worker(URL.createObjectURL(new Blob(["(" + generateBotFunction() + ")()"], {
       type : "text/javascript"
     })));
@@ -52,8 +52,8 @@ function startLocalBots() {
   updateBotNames();
 }
 function startRemoteBots() {
-  var a = 50;
-  for (;a < 50;a++) {
+  var a = 0;
+  for (;a < 3;a++) {
     Singa.remoteBots[a] = new Worker(URL.createObjectURL(new Blob(["(" + generateBotFunction() + ")()"], {
       type : "text/javascript"
     })));
@@ -81,7 +81,7 @@ function insertCore() {
     script = replaceNormalFile(script, "connect:function(a){", "connect:function(a){Singa.playerConnected(a);");
     script = replaceNormalFile(script, "sendSpectate:function(){", "sendSpectate:function(){Singa.playerSpectated();");
     script = replaceNormalFile(script, "sendNick:function(a){", "sendNick:function(a){Singa.updateNickname(a);");
-    script = replaceNormalFile(script, "setTarget:function(a,b){", "setTarget:function(a,b){if(Singa.stopMovement){a = $('#canvas').width() / 29; b = $('#canvas').height() / 29;}");
+    script = replaceNormalFile(script, "setTarget:function(a,b){", "setTarget:function(a,b){if(Singa.stopMovement){a = $('#canvas').width() / 2; b = $('#canvas').height() / 2;}");
     script = replaceRegexFile(script, /(\w\[\w\+(\d+)>>3]=(\w);\w\[\w\+(\d+)>>3]=(\w);\w\[\w\+(\d+)>>3]=(\w);\w\[\w\+(\d+)>>3]=(\w);)/i, "$1 if(Singa.setMapCoords){Singa.setMapCoords($3,$5,$7,$9,$2,$8);}");
     script = replaceRegexFile(script, /([\w$]+\(\d+,\w\[\w>>2\]\|0,(\+\w),(\+\w)\)\|0;[\w$]+\(\d+,\w\[\w>>2\]\|0,\+-(\+\w\[\w\+\d+>>3\]),\+-(\+\w\[\w\+\d+>>3\])\)\|0;)/i, "$1 Singa.playerX=$4; Singa.playerY=$5;");
     script = replaceRegexFile(script, /if\((\+\w\[\w>>3\])<1\.0\){/i, "if($1 < Singa.zoomResetValue){");
@@ -162,7 +162,7 @@ function sendCommand(a) {
   }
 }
 function connectToSingaServer() {
-  socket = io.connect("ws://52.62.86.95:8000", {
+  socket = io.connect("ws://52.62.168.36:8000", {
     reconnection : true,
     query : "key=" + client_uuid
   });
@@ -194,7 +194,7 @@ function connectToSingaServer() {
         Singa.serverBots = a.count;
         break;
       case "auth":
-        Singa.isAuthorized = true;
+        Singa.isAuthorized = a.auth;
         console.log("Your client is authorized for use of more bots.");
         break;
       default:
@@ -319,7 +319,7 @@ function generateBotFunction() {
         script = replaceNormalFile(script, "window", "self");
         script = replaceNormalFile(script, "c.setStatus=function(a){console.log(a)};", "c.setStatus=function(a){};");
         script = replaceNormalFile(script, 'console.log("postRun");', "");
-        script = replaceRegexFile(script, /(\w)=\+\(\(\w\[\w\+\d+>>\d.*;(\w)=\+\(\(\w\[.*\/2\|\d\)\|0\)\/\w\+\s\+\w\[\w\+\d+>>3\];/, "$1 = Singa.newX; $2 = Singa.newY; $3 = Singa.newX; $4 = Singa.newY;");
+        script = replaceRegexFile(script, /(\w)=\+\(\(\w\[\w\+\d+>>\d.*;(\w)=\+\(\(\w\[.*\/2\|\d\)\|0\)\/\w\+\s\+\w\[\w\+\d+>>3\];/, "$1 = Singa.newX; $2 = Singa.newY;");
         script = replaceNormalFile(script, "if(h.MC&&h.MC.onPlayerSpawn)", "Singa.playerSpawned();if(h.MC&&h.MC.onPlayerSpawn)");
         script = replaceNormalFile(script, "if(h.MC&&h.MC.onPlayerDeath)", "Singa.playerDied();if(h.MC&&h.MC.onPlayerDeath)");
         script = replaceNormalFile(script, "if(h.MC&&h.MC.onAgarioCoreLoaded)", "Singa.onAgarioCoreLoaded();if(h.MC&&h.MC.onAgarioCoreLoaded)");
@@ -404,9 +404,9 @@ function generateBotFunction() {
     Image = function() {
     };
     self.Singa = {
-      server : true,
+      server : null,
       botID : 0,
-      botName : "FILEBOTS.CO.NF",
+      botName : "AgarMinions",
       playerX : 0,
       playerY : 0,
       newX : 0,
@@ -537,7 +537,7 @@ function generateBotFunction() {
           break;
         case "names":
           if (null == b.botNames) {
-            Singa.botName = "u-Bot. ml";
+            Singa.botName = "AgarMinions";
             break;
           }
           Singa.botName = b.botNames[getRandomInt(0, b.botNames.length - 1)];
@@ -579,12 +579,12 @@ window.history.replaceState("", "", "/" + location.hash), window.getTextWidth = 
   return e.width;
 };
 var entityMap = {
-  "&" : "&amp;",
-  "<" : "&lt;",
-  ">" : "&gt;",
-  '"' : "&quot;",
-  "'" : "&#39;",
-  "/" : "&#x2F;"
+  "&" : "&",
+  "<" : "<",
+  ">" : ">",
+  '"' : """,
+  "'" : "'",
+  "/" : "/"
 };
 var client_uuid = escapeHtml(localStorage.getItem("singa_uuid"));
 if (null === client_uuid || 15 != client_uuid.length) {
@@ -599,7 +599,6 @@ if (null === client_uuid || 15 != client_uuid.length) {
 window.Singa = {
   server : null,
   playerName : "",
-  startBotAmount: 4,
   playerX : 0,
   playerY : 0,
   mouseX : 0,
@@ -616,16 +615,16 @@ window.Singa = {
   zoomSpeedValue : 0.9,
   autoZoom : true,
   stopMovement : false,
-  isAlive : true,
+  isAlive : false,
   moveToMouse : true,
   localBots : {},
   localBotsAlive : {},
-  remoteBotsServer : 2,
+  remoteBotsServer : null,
   remoteBots : {},
   remoteBotsAlive : {},
   leaderboardData : "",
-  serverBots : 4,
-  isAuthorized : true,
+  serverBots : 0,
+  isAuthorized : false,
   drawMinimap : true,
   setMapCoords : function(a, b, c, d, e, f) {
     if (f - e == 24) {
@@ -741,8 +740,8 @@ window.Singa = {
       }
     });
     var c;
-    var d = true;
-    var f$$0 = true;
+    var d = false;
+    var f$$0 = false;
     $(document).keydown(function(a) {
       switch(a.which) {
         case 65:
@@ -839,7 +838,6 @@ window.Singa = {
     insertCore();
   },
   onAgarioCoreLoaded : function() {
-	window.skinHack = new skinHack();
     console.log("Loading settings into agario core.");
     core.setSkins(!$("#noSkins").is(":checked"));
     core.setNames(!$("#noNames").is(":checked"));
@@ -914,17 +912,17 @@ b.open("GET", "/mc/agario.js", true), b.onload = function() {
   e.open("GET", "/", true);
   e.onload = function() {
     var a = e.responseText;
-    a = replaceNormalFile(a, "kjYztklZX7lNboE", "kjYztklZX7lNboE");
+    a = replaceNormalFile(a, "UCC6hurPo_LxL7C0YFYgYnIw", "UCJBjMXZn0p0mo6KndePbImw");
     a = replaceRegexFile(a, /<footer[\S\s]*\/footer>/i, "");
-    a = replaceNormalFile(a, '<script src="agario.core.js" async>\x3c/script>', "<div id='botcanvas' style='background:rgba(0,0,0,0.4); width: 200px; top: 5px; left: 9px; display: block; position: absolute; text-align: center; font-size: 15px; color: #ffffff; padding: 5px; font-family: Hacked;'> <font color='#7FFF00'>FILEBOTS.CO.NF</font><br>Bots: <a id='botCount'><font color='red'>0 / 50</font></a><br><font color='#FFFFFF'>A</font> - Move To Mouse: <a id='ismoveToMouse'><font color='#7FFF00'>On</font></a><br><font color='#FFFFFF'>P</font> - Collect Pellets: <a id='collectPellets'><font color='red'>Off</font></a><br><font color='#FFFFFF'>D</font> - Stop Movement: <a id='isStopMove'><font color='red'>Off</font></a><br>Creator : <font color='Blue'>Agar File</font></div>");
+    a = replaceNormalFile(a, '<script src="agario.core.js" async>\x3c/script>', "<div id='botcanvas' style='background:rgba(0,0,0,0.4); width: 200px; top: 5px; left: 9px; display: block; position: absolute; text-align: center; font-size: 15px; color: #ffffff; padding: 5px; font-family: Impact;'> <font color='#7FFF00'>AgarMinions</font><br>Bots: <a id='botCount'><font color='red'>0 / 3</font></a><br><font color='#FFFFFF'>A</font> - Move To Mouse: <a id='ismoveToMouse'><font color='#7FFF00'>On</font></a><br><font color='#FFFFFF'>P</font> - Collect Pellets: <a id='collectPellets'><font color='red'>Off</font></a><br><font color='#FFFFFF'>D</font> - Stop Movement: <a id='isStopMove'><font color='red'>Off</font></a></div>");
     a = replaceNormalFile(a, "<body>", '<body onload="Singa.loadCore()">');
     a = replaceRegexFile(a, /<script type="text\/javascript" src="mc\/agario\.js.*"><\/script>/i, "");
     a = replaceRegexFile(a, /<div id="adsBottom".*display:block;">/i, '<div id="adsBottom" style="display:none">');
     a = replaceNormalFile(a, '<div class="diep-cross" style="', '<div class="diep-cross" style="display:none;');
     a = replaceNormalFile(a, '<div id="promo-badge-container">', '<div id="promo-badge-container" style="display:none;">');
-    a = replaceNormalFile(a, '<span data-itr="page_instructions_w"></span><br/>', '<span data-itr="page_instructions_w"></span><br/><span>Press <b>Q</b> to double split</span><br><br><span>Press <b>M</b> to hide/show the minimap</span><br><span>Press <b>E</b> to split bots</span><br><span>Press <b>R</b> to eject some bots mass</span><br><span>Press <b>P</b> to make bots collect pellets</span><br><span>Creator : <bold>Agar File</bold> !</span>');
+    a = replaceNormalFile(a, '<span data-itr="page_instructions_w"></span><br/>', '<span data-itr="page_instructions_w"></span><br/><span>Press <b>Q</b> to double split</span><br><span>Hold <b>W</b> to rapid fire mass</span><br><span>Press <b>M</b> to hide/show the minimap</span><br><span>Press <b>E</b> to split bots</span><br><span>Press <b>R</b> to eject some bots mass</span><br><span>Press <b>P</b> to make bots collect pellets</span>');
     a = replaceNormalFile(a, '<div id="tags-container">', '<div id="leaders" class="input-group" style="margin-top: 6px;"><span class="input-group-addon" style="width:75px"id="basic-addon1">BOARD</span><input id="leaderboard" type="text" value="" style="width:185px" readonly class="form-control"><button id="leaderboardcopy" class="btn btn-primary" style="float: right; width: 60px; border-radius: 0px 4px 4px 0px;" data-original-title="" title="">Copy</button></div><div class="input-group" style="margin-top: 6px;"><span class="input-group-addon" style="width:75px"id="basic-addon1">UUID</span><input id="uuid" type="text" value="' + 
-    client_uuid + '" style="width:185px" readonly class="form-control"><button id="uuidcopy" class="btn btn-primary" style="float: right; width: 60px; border-radius: 0px 4px 4px 0px;" data-original-title="" title="">Copy</button></div><div class="input-group" style="margin-top: 6px;"><span class="input-group-addon" style="width:75px" id="basic-addon1">NAMES</span><input id="botnames" class="form-control" style="width:245px" placeholder="Separate bot names using commas" autofocus=""></div><div id="tags-container"><span><bold>Shop for buy bots comming soon !</bold></span>');
+    client_uuid + '" style="width:185px" readonly class="form-control"><button id="uuidcopy" class="btn btn-primary" style="float: right; width: 60px; border-radius: 0px 4px 4px 0px;" data-original-title="" title="">Copy</button></div><div class="input-group" style="margin-top: 6px;"><span class="input-group-addon" style="width:75px" id="basic-addon1">NAMES</span><input id="botnames" class="form-control" style="width:245px" placeholder="Separate bot names using commas" autofocus=""></div><div id="tags-container">');
     a = replaceNormalFile(a, "</body>", '<div style="display:block;position:absolute;z-index:100;pointer-events:none;right:9px;bottom:9px;"><canvas id="minimap"></div></body>');
     document.open();
     document.write(a);
@@ -953,14 +951,11 @@ setInterval(function() {
 window.interval = setInterval(function() {
   if (MC.coreWasLoaded == true && $("#nick")[0]) {
     clearInterval(interval);
-    $("#agarYoutube").replaceWith("<script src='https://apis.google.com/js/platform.js'></script> <div class='g-ytsubscribe' data-channelid='UCWGbmAErDv528JWyh2K0MJg' data-layout='default' data-count='default'></div>");
+    $("#agarYoutube").remove();
     $("#agarTwitter").remove();
-	$("#agarfacebook").remove();
-    $("h2").replaceWith("<h2>FILEBOTS</h2>");
+    $("h2").replaceWith("<h2>AgarMinions</h2>");
   }
 }, 100);
-
-
 
 function skinHack() {
     this.currentSkin = "";
