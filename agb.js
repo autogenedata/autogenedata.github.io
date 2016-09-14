@@ -620,7 +620,7 @@ window.Singa = {
   moveToMouse : true,
   localBots : {},
   localBotsAlive : {},
-  remoteBotsServer : 2,
+  remoteBotsServer : 9,
   remoteBots : {},
   remoteBotsAlive : {},
   leaderboardData : "",
