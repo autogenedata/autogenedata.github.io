@@ -880,8 +880,8 @@ var minimapCtx = null;
 minimapBalls = {}, MinimapBall.prototype = {
   draw : function(a, b, c) {
     if (this.visible) {
-      this.lastX = (29 * this.lastX + this.x) / 30;
-      this.lastY = (29 * this.lastY + this.y) / 30;
+      this.lastX = (99 * this.lastX + this.x) / 100;
+      this.lastY = (99 * this.lastY + this.y) / 100;
       var d = ((this.isDefault ? this.x : this.lastX) + Singa.mapOffset) * b;
       var e = ((this.isDefault ? this.y : this.lastY) + Singa.mapOffset) * c;
       a.fillStyle = this.color;
