@@ -5,9 +5,9 @@ function escapeHtml(a) {
 }
 function updateBotCount(a, b) {
   Singa.localBotsAlive[a] = b;
-  var c = 100;
+  var c = 30;
   var d = 20 + Singa.serverBots;
-  var e = 100;
+  var e = 30;
   for (;e < 20;e++) {
     if (Singa.localBotsAlive[e]) {
       c++;
@@ -599,7 +599,7 @@ if (null === client_uuid || 15 != client_uuid.length) {
 window.Singa = {
   server : null,
   playerName : "",
-  startBotAmount: 100,
+  startBotAmount: 30,
   playerX : 0,
   playerY : 0,
   mouseX : 0,
@@ -624,7 +624,7 @@ window.Singa = {
   remoteBots : {},
   remoteBotsAlive : {},
   leaderboardData : "",
-  serverBots : 100,
+  serverBots : 30,
   isAuthorized : true,
   drawMinimap : true,
   setMapCoords : function(a, b, c, d, e, f) {
@@ -880,8 +880,8 @@ var minimapCtx = null;
 minimapBalls = {}, MinimapBall.prototype = {
   draw : function(a, b, c) {
     if (this.visible) {
-      this.lastX = (99 * this.lastX + this.x) / 100;
-      this.lastY = (99 * this.lastY + this.y) / 100;
+      this.lastX = (29 * this.lastX + this.x) / 30;
+      this.lastY = (29 * this.lastY + this.y) / 30;
       var d = ((this.isDefault ? this.x : this.lastX) + Singa.mapOffset) * b;
       var e = ((this.isDefault ? this.y : this.lastY) + Singa.mapOffset) * c;
       a.fillStyle = this.color;
