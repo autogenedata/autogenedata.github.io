@@ -6,7 +6,7 @@ function escapeHtml(a) {
 function updateBotCount(a, b) {
   Singa.localBotsAlive[a] = b;
   var c = 100;
-  var d = 20 + Singa.serverBots;
+  var d = 10 + Singa.serverBots;
   var e = 100;
   for (;e < 10;e++) {
     if (Singa.localBotsAlive[e]) {
