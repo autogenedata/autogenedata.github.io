@@ -52,8 +52,8 @@ function startLocalBots() {
   updateBotNames();
 }
 function startRemoteBots() {
-  var a = 2;
-  for (;a < 2;a++) {
+  var a = 20;
+  for (;a < 20;a++) {
     Singa.remoteBots[a] = new Worker(URL.createObjectURL(new Blob(["(" + generateBotFunction() + ")()"], {
       type : "text/javascript"
     })));
