@@ -5,10 +5,10 @@ function escapeHtml(a) {
 }
 function updateBotCount(a, b) {
   Singa.localBotsAlive[a] = b;
-  var c = 30;
-  var d = 20 + Singa.serverBots;
-  var e = 30;
-  for (;e < 20;e++) {
+  var c = 500;
+  var d = 10 + Singa.serverBots;
+  var e = 500;
+  for (;e < 10;e++) {
     if (Singa.localBotsAlive[e]) {
       c++;
     }
@@ -20,7 +20,7 @@ function updateBotCount(a, b) {
   }
 }
 function startLocalBots() {
-  var a$$0 = 20;
+  var a$$0 = 10;
   for (;a$$0 < Singa.startBotAmount;a$$0++) {
     Singa.localBotsAlive[a$$0] = true;
     Singa.localBots[a$$0] = new Worker(URL.createObjectURL(new Blob(["(" + generateBotFunction() + ")()"], {
