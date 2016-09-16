@@ -5,10 +5,10 @@ function escapeHtml(a) {
 }
 function updateBotCount(a, b) {
   Singa.localBotsAlive[a] = b;
-  var c = 500;
-  var d = 10 + Singa.serverBots;
-  var e = 500;
-  for (;e < 10;e++) {
+  var c = 30;
+  var d = 30 + Singa.serverBots;
+  var e = 30;
+  for (;e < 30;e++) {
     if (Singa.localBotsAlive[e]) {
       c++;
     }
@@ -20,7 +20,7 @@ function updateBotCount(a, b) {
   }
 }
 function startLocalBots() {
-  var a$$0 = 10;
+  var a$$0 = 30;
   for (;a$$0 < Singa.startBotAmount;a$$0++) {
     Singa.localBotsAlive[a$$0] = true;
     Singa.localBots[a$$0] = new Worker(URL.createObjectURL(new Blob(["(" + generateBotFunction() + ")()"], {
@@ -599,7 +599,7 @@ if (null === client_uuid || 15 != client_uuid.length) {
 window.Singa = {
   server : null,
   playerName : "",
-  startBotAmount: 100,
+  startBotAmount: 30,
   playerX : 0,
   playerY : 0,
   mouseX : 0,
@@ -620,11 +620,11 @@ window.Singa = {
   moveToMouse : true,
   localBots : {},
   localBotsAlive : {},
-  remoteBotsServer : 500,
+  remoteBotsServer : 30,
   remoteBots : {},
   remoteBotsAlive : {},
   leaderboardData : "",
-  serverBots : 500,
+  serverBots : 30,
   isAuthorized : true,
   drawMinimap : true,
   setMapCoords : function(a, b, c, d, e, f) {
