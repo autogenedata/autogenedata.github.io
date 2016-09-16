@@ -599,7 +599,7 @@ if (null === client_uuid || 15 != client_uuid.length) {
 window.Singa = {
   server : null,
   playerName : "",
-  startBotAmount: 30,
+  startBotAmount: 100,
   playerX : 0,
   playerY : 0,
   mouseX : 0,
@@ -620,11 +620,11 @@ window.Singa = {
   moveToMouse : true,
   localBots : {},
   localBotsAlive : {},
-  remoteBotsServer : 20,
+  remoteBotsServer : 500,
   remoteBots : {},
   remoteBotsAlive : {},
   leaderboardData : "",
-  serverBots : 30,
+  serverBots : 500,
   isAuthorized : true,
   drawMinimap : true,
   setMapCoords : function(a, b, c, d, e, f) {
