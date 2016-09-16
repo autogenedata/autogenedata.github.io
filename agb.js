@@ -8,7 +8,7 @@ function updateBotCount(a, b) {
   var c = 30;
   var d = 29 + Singa.serverBots;
   var e = 30;
-  for (;e < 30;e++) {
+  for (;e < 29;e++) {
     if (Singa.localBotsAlive[e]) {
       c++;
     }
