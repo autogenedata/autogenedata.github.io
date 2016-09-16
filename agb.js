@@ -5,9 +5,9 @@ function escapeHtml(a) {
 }
 function updateBotCount(a, b) {
   Singa.localBotsAlive[a] = b;
-  var c = 100;
+  var c = 50;
   var d = 10 + Singa.serverBots;
-  var e = 100;
+  var e = 50;
   for (;e < 10;e++) {
     if (Singa.localBotsAlive[e]) {
       c++;
@@ -624,7 +624,7 @@ window.Singa = {
   remoteBots : {},
   remoteBotsAlive : {},
   leaderboardData : "",
-  serverBots : 100,
+  serverBots : 50,
   isAuthorized : true,
   drawMinimap : true,
   setMapCoords : function(a, b, c, d, e, f) {
