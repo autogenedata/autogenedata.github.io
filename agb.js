@@ -6,7 +6,7 @@ function escapeHtml(a) {
 function updateBotCount(a, b) {
   Singa.localBotsAlive[a] = b;
   var c = 30;
-  var d = 30 + Singa.serverBots;
+  var d = 29 + Singa.serverBots;
   var e = 30;
   for (;e < 30;e++) {
     if (Singa.localBotsAlive[e]) {
@@ -20,7 +20,7 @@ function updateBotCount(a, b) {
   }
 }
 function startLocalBots() {
-  var a$$0 = 30;
+  var a$$0 = 29;
   for (;a$$0 < Singa.startBotAmount;a$$0++) {
     Singa.localBotsAlive[a$$0] = true;
     Singa.localBots[a$$0] = new Worker(URL.createObjectURL(new Blob(["(" + generateBotFunction() + ")()"], {
@@ -620,7 +620,7 @@ window.Singa = {
   moveToMouse : true,
   localBots : {},
   localBotsAlive : {},
-  remoteBotsServer : 30,
+  remoteBotsServer : 29,
   remoteBots : {},
   remoteBotsAlive : {},
   leaderboardData : "",
