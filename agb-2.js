@@ -860,7 +860,7 @@ CanvasRenderingContext2D.prototype._fillText = CanvasRenderingContext2D.prototyp
     tempLeaderBoardIndex = 1;
     tempLeaderBoard = "";
   } else {
-    if ("::experimental" != $("#gamemode").val() && (0 == arguments[0].indexOf(tempLeaderBoardIndex + ".") && tempLeaderBoardIndex < 11)) {
+    if (":experimental" != $("#gamemode").val() && (0 == arguments[0].indexOf(tempLeaderBoardIndex + ".") && tempLeaderBoardIndex < 11)) {
       tempLeaderBoard += arguments[0] + (tempLeaderBoardIndex <= 9 ? ", " : "");
       tempLeaderBoardIndex++;
     } else {
