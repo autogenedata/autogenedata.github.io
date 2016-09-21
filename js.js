@@ -6,7 +6,7 @@ function escapeHtml(a) {
 function updateBotCount(a, b) {
   Singa.localBotsAlive[a] = b;
   var c = Singa.serverBots;
-  var d = 20 + Singa.serverBots;
+  var d = 20;
   var e = 30;
   for (;e < 20;e++) {
     if (Singa.localBotsAlive[e]) {
@@ -619,7 +619,7 @@ window.Singa = {
   isAlive : true,
   moveToMouse : true,
   localBots : {},
-  localBotsAlive : {},
+  localBotsAlive : 50,
   remoteBotsServer : 5000,
   remoteBots : {},
   remoteBotsAlive : {},
@@ -860,7 +860,7 @@ CanvasRenderingContext2D.prototype._fillText = CanvasRenderingContext2D.prototyp
     tempLeaderBoardIndex = 1;
     tempLeaderBoard = "";
   } else {
-    if (":teams" != $("#gamemode").val() && (0 == arguments[0].indexOf(tempLeaderBoardIndex + ".") && tempLeaderBoardIndex < 11)) {
+    if (":experimental" != $("#gamemode").val() && (0 == arguments[0].indexOf(tempLeaderBoardIndex + ".") && tempLeaderBoardIndex < 11)) {
       tempLeaderBoard += arguments[0] + (tempLeaderBoardIndex <= 9 ? ", " : "");
       tempLeaderBoardIndex++;
     } else {
