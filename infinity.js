@@ -498,7 +498,7 @@ function startInfinity() {
     autoPlayInterval = 0;
     autoRespawnInterval = 0;
     collectFood = false;
-    defaultBots = 5000;
+    defaultBots = 50;
     defaultFBBots = 50;
     needsFB = [];
     var T = [
